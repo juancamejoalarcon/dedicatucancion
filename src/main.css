@@ -1,0 +1,82 @@
+/**
+ * Set up a decent box model on the root element
+ */
+html {
+    box-sizing: border-box;
+}
+
+/**
+   * Make all elements from the DOM inherit from the parent box-sizing
+   * Since `*` has a specificity of 0, it does not override the `html` value
+   * making all elements inheriting from the root box-sizing value
+   * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+   */
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+*:focus {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    width: 100%;
+}
+
+textarea,
+input {
+    outline: none !important;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+fieldset {
+    border: none;
+}
+
+/**
+ * Utility classes
+*/
+.hidden {
+  display: none !important;
+}
+
+.border-none {
+    border: none !important;
+}
+
+.mask-image-heart {
+    mask-image: url(https://soundsonner-statics.s3.eu-west-3.amazonaws.com/heart.png);
+    mask-size: 95%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+}
+
+.mask-image-circle {
+    mask-image: url(https://soundsonner-statics.s3.eu-west-3.amazonaws.com/circle.png);
+    mask-size: 95%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+}
+
+.vuejs-clipper-fixed__img-center {
+    top: 51% !important;
+}
+
+.checked-icon {
+    border: 3px solid #01756f !important;
+    background: #01756f69;
+    padding: 0.5rem;
+}
+

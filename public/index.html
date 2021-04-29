@@ -11,7 +11,61 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <!-- Form -->
+    <!-- <div id="dedicatucancion"></div> -->
+    <!-- Cart -->
+    <!-- <div hidden="" id="json-content-soundsonner">{"song_id":"5yrqY5yKBuBjIS4luMlgCx","soundwave":"https:\/\/scannables.scdn.co\/uri\/plain\/png\/FFFFFF\/black\/820\/spotify:track:5yrqY5yKBuBjIS4luMlgCx","album_image":"https:\/\/i.scdn.co\/image\/ab67616d0000b273c9d354dafee51e71492cb02e","album_title":"Fidget","song_artist":"Lil Skies","song_title":"Lil Skies","type":"personal","shape":"circle","custom_image":"_c22w17cem","drawPos":{"left":"0.2205728446101033","top":"1.3820634649724077"},"scale":"1.9249"}</div>
+    <div id="dedicatucancion" dedicatucancion-json='{ "mode": "cart" }'></div> -->
+    <!-- Order -->
+    <!-- <div id="dedicatucancion" dedicatucancion-json='{ "mode": "order" }'></div> -->
+    <!-- Editor -->
+    <div id="dedicatucancion" dedicatucancion-json='{ "mode": "editor", "order": "wc_order_7AwmETgGyn01I" }'></div>
+    <!-- Spotify Params -->
+    <div class="demo">
+      <!-- <div id="dedicatucancion" dedicatucancion-json='{ "mode": "order" }'></div> -->
+      <div class="demo-params">
+        <a id="visualize-button">
+          Visualizar placa
+        </a>
+        <a id="download-button">
+          Descargar
+        </a>
+        <div class="single-param">
+          <strong>Artista: </strong>
+          <span class="spot-param" param="songArtist"></span>
+        </div>
+        <div class="single-param">
+          <strong>Título: </strong>
+          <span class="spot-param" param="songTitle"></span>
+        </div>
+        <div class="single-param">
+          <strong>Album: </strong>
+          <span class="spot-param" param="albumTitle"></span>
+        </div>
+        <div class="lyrics">
+          <span class="spot-param" param="lyrics"></span>
+        </div>
+      </div>
+    </div>
+    <style>
+      .demo {
+        display: flex;
+      }
+      .demo-params {
+        display: flex;
+        flex-direction: column;
+        overflow: scroll;
+        max-height: 90vh;
+        margin-top: 5vh;
+      }
+      .single-param {
+        display: flex;
+        padding: 0.2rem;
+      }
+      .lyrics {
+        border: 1px solid black;
+      }
+    </style>
     <!-- built files will be auto injected -->
   </body>
 </html>

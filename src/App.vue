@@ -1,29 +1,33 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
+  <Form v-if="dedicatucancionJson.mode === 'form'" />
+  <Order :dedicatucancionJson="dedicatucancionJson" v-else />
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "./components/HelloWorld.vue";
+import Form from "@/components/Form.vue";
+import Order from "@/components/Order.vue";
+// import Dedicatucancion from "@/models/Dedicatucancion";
+import wordpressSetup from "@/services/wordpress-setup.service";
 
 @Component({
-  components: {
-    HelloWorld,
-  },
+  components: { Form, Order },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  private dedicatucancionJson: any = { mode: "form" };
+
+  created(): void {
+    if ((this.$parent as any).dedicatucancionJson) {
+      this.dedicatucancionJson = JSON.parse(
+        (this.$parent as any).dedicatucancionJson
+      );
+    }
+  }
+  mounted(): void {
+    wordpressSetup();
+  }
+}
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="postcss"></style>

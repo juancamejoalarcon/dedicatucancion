@@ -1,0 +1,3 @@
+npm run build
+cp -f /Users/juancamejoalarcon/Proyectos/soundsoner/2_code/dedicatucancion/dist/soundsonner.js /Users/juancamejoalarcon/Proyectos/soundsoner/2_code/wordpress/wordpress-docker-compose/wp-app/wp-content/themes/jupiter-6.2.0/assets/js/soundsonner.js
+cp -f /Users/juancamejoalarcon/Proyectos/soundsoner/2_code/dedicatucancion/dist/soundsonner.js /Users/juancamejoalarcon/Proyectos/soundsoner/2_code/wordpress/wordpress-docker-compose/wp-app/wp-content/plugins/woocommerce/assets/js/admin/soundsonner-admin.js

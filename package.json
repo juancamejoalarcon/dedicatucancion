@@ -4,17 +4,37 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "NODE_ENV='production' vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@types/spotify-web-api-js": "^0.21.0",
+    "autoprefixer": "^9.2.5",
+    "aws-sdk": "^2.888.0",
+    "axios": "^0.21.1",
+    "browser-image-compression": "^1.0.14",
     "core-js": "^3.6.5",
+    "debounce": "^1.2.1",
+    "jspdf": "^2.3.1",
+    "postcss-nested": "^4.0.5",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-simple-vars": "^5.0.0",
+    "qs": "^6.10.1",
+    "rxjs": "^6.6.7",
+    "save-dev": "0.0.1-security",
+    "spotify-web-api-js": "^1.5.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
-    "vue-property-decorator": "^9.1.2"
+    "vue-js-modal": "^2.0.0-rc.6",
+    "vue-property-decorator": "^9.1.2",
+    "vue-rx": "^6.2.0",
+    "vue-spinner": "^1.0.4",
+    "vuejs-clipper": "^3.1.2",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@types/debounce": "^1.2.0",
     "@types/jest": "^24.0.19",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
@@ -29,6 +49,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
+    "postcss": "^8.2.10",
     "prettier": "^2.2.1",
     "typescript": "~4.1.5",
     "vue-template-compiler": "^2.6.11"
