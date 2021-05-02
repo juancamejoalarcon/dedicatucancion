@@ -20,6 +20,7 @@
       <div class="modal-class__container">
         <Form ref="form" />
       </div>
+      <div>Descargar Imagen</div>
       <div class="modal-class__buttons">
         <button type="button" @click="$modal.hide('editor-modal')">
           CERRAR
@@ -65,6 +66,7 @@ export default class Order extends Vue {
         break;
       case "editor":
         this.setOrderInStore(this.dedicatucancionJson.order);
+        this.$store.dispatch("setEditCustomImageEnabled", true);
         break;
       default:
         break;
@@ -121,6 +123,7 @@ export default class Order extends Vue {
             );
           }
           spotifyService.setHTMLParams();
+          spotifyService.setSpotifyButton(track);
           this.setDownloadButton();
         });
       });
@@ -185,12 +188,15 @@ export default class Order extends Vue {
   }
 
   save(): void {
-    utilsService.setWindowObj();
-    this.amazonObj.soundsonner = window.soundsoner;
-    awsService.saveObj(this.order, this.amazonObj).then(() => {
-      this.$modal.hide("editor-modal", {});
-      spotifyService.setHTMLParams();
-    });
+    var r = confirm("¿Seguro que quieres actulizar?");
+    if (r) {
+      utilsService.setWindowObj();
+      this.amazonObj.soundsonner = window.soundsoner;
+      awsService.saveObj(this.order, this.amazonObj).then(() => {
+        this.$modal.hide("editor-modal", {});
+        spotifyService.setHTMLParams();
+      });
+    }
   }
 }
 </script>

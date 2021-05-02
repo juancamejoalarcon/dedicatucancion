@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <!-- Form -->
-    <!-- <div id="dedicatucancion"></div> -->
-    <!-- Cart -->
-    <!-- <div hidden="" id="json-content-soundsonner">{"song_id":"5yrqY5yKBuBjIS4luMlgCx","soundwave":"https:\/\/scannables.scdn.co\/uri\/plain\/png\/FFFFFF\/black\/820\/spotify:track:5yrqY5yKBuBjIS4luMlgCx","album_image":"https:\/\/i.scdn.co\/image\/ab67616d0000b273c9d354dafee51e71492cb02e","album_title":"Fidget","song_artist":"Lil Skies","song_title":"Lil Skies","type":"personal","shape":"circle","custom_image":"_c22w17cem","drawPos":{"left":"0.2205728446101033","top":"1.3820634649724077"},"scale":"1.9249"}</div>
-    <div id="dedicatucancion" dedicatucancion-json='{ "mode": "cart" }'></div> -->
-    <!-- Order -->
-    <!-- <div id="dedicatucancion" dedicatucancion-json='{ "mode": "order" }'></div> -->
-    <!-- Editor -->
-    <div id="dedicatucancion" dedicatucancion-json='{ "mode": "editor", "order": "wc_order_7AwmETgGyn01I" }'></div>
-    <!-- Spotify Params -->
-    <div class="demo">
-      <!-- <div id="dedicatucancion" dedicatucancion-json='{ "mode": "order" }'></div> -->
-      <div class="demo-params">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+  <!-- Form -->
+  <div id="dedicatucancion"></div>
+  <!-- Cart -->
+  <!-- <div hidden="" id="json-content-soundsonner">
+    {"song_id":"7B3z0ySL9Rr0XvZEAjWZzM","soundwave":"https:\/\/scannables.scdn.co\/uri\/plain\/png\/FFFFFF\/black\/820\/spotify:track:7B3z0ySL9Rr0XvZEAjWZzM","album_image":"https:\/\/i.scdn.co\/image\/ab67616d0000b27333ccb60f9b2785ef691b2fbc","album_title":"Immunity","song_artist":"Clairo","song_title":"Sofia","type":"personal","shape":"heart","custom_image":"_b7lurow6f","drawPos":{"left":"-0.8362836014095952","top":"-2.9437687636184258"},"scale":"1.64352422907489"}
+  </div>
+  <div id="dedicatucancion" dedicatucancion-json='{ "mode": "cart" }'></div> -->
+  <!-- Order -->
+  <!-- <div id="dedicatucancion" dedicatucancion-json='{ "mode": "order" }'></div> -->
+  <!-- Editor -->
+  <!-- <div id="dedicatucancion" dedicatucancion-json='{ "mode": "editor", "order": "wc_order_mMUOsNTeFe3yG" }'></div> -->
+  <!-- Spotify Params -->
+  <!-- <div class="demo"> -->
+  <!-- <div id="dedicatucancion" dedicatucancion-json='{ "mode": "order" }'></div> -->
+  <!-- <div class="demo-params">
         <a id="visualize-button">
           Visualizar placa
         </a>
@@ -42,30 +49,41 @@
           <strong>Album: </strong>
           <span class="spot-param" param="albumTitle"></span>
         </div>
+        <div class="single-param">
+          <span class="spot-param" param="spotifyButton"></span>
+        </div>
         <div class="lyrics">
           <span class="spot-param" param="lyrics"></span>
         </div>
       </div>
-    </div>
-    <style>
-      .demo {
-        display: flex;
-      }
-      .demo-params {
-        display: flex;
-        flex-direction: column;
-        overflow: scroll;
-        max-height: 90vh;
-        margin-top: 5vh;
-      }
-      .single-param {
-        display: flex;
-        padding: 0.2rem;
-      }
-      .lyrics {
-        border: 1px solid black;
-      }
-    </style>
-    <!-- built files will be auto injected -->
-  </body>
+    </div> -->
+  <style>
+    body {
+      display: flex;
+    }
+
+    .demo {
+      display: flex;
+    }
+
+    .demo-params {
+      display: flex;
+      flex-direction: column;
+      overflow: scroll;
+      max-height: 90vh;
+      margin-top: 5vh;
+    }
+
+    .single-param {
+      display: flex;
+      padding: 0.2rem;
+    }
+
+    .lyrics {
+      border: 1px solid black;
+    }
+  </style>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

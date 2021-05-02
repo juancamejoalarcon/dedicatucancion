@@ -29,6 +29,11 @@ const validateInputs = () => {
     const storeValue = store.state[key];
     if (!storeValue || storeValue === Dedicatucancion[key]) {
       el?.classList.add("-error");
+      el?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
       valid = false;
     } else {
       el?.classList.remove("-error");

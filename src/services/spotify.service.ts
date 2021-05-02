@@ -76,6 +76,17 @@ class SpotifyService {
     }, "");
   }
 
+  setSpotifyButton(item: SpotifyApi.TrackObjectFull): void {
+    document.querySelectorAll(".spot-param").forEach((el) => {
+      const param = el.getAttribute("param");
+      if (param === "spotifyButton") {
+        const iframeEl = el.querySelector("iframe");
+        if (iframeEl) iframeEl.src = item.external_urls.spotify;
+        el.innerHTML = `<iframe src="https://open.spotify.com/embed/track/${item.id}" width="300" height="80" frameborder="0" allow="encrypted-media"></iframe>`;
+      }
+    });
+  }
+
   setHTMLParams(): void {
     document.querySelectorAll(".spot-param").forEach((el) => {
       const param = el.getAttribute("param");
@@ -83,7 +94,6 @@ class SpotifyService {
         case "songArtist":
         case "songTitle":
         case "albumTitle":
-          console.log("llega");
           el.textContent = store.state[param];
           break;
         case "lyrics":

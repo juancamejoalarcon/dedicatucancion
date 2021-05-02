@@ -39,6 +39,31 @@ class PDFService {
     doc.rect(40, 28, 130, 130, "FD");
   }
 
+  _getYpositionForPersonalImage(
+    aspratioHeight: number,
+    top: number,
+    scale: number
+  ): number {
+    // top of square + height
+    const initialTop = 28 + 130 / 2;
+    const centerImage = initialTop - aspratioHeight / 2;
+    const adjustedScale = scale * 0.8;
+    const scaledTop = top * adjustedScale;
+    return centerImage + scaledTop;
+  }
+
+  _getXpositionForPersonalImage(
+    aspratioWidth: number,
+    left: number,
+    scale: number,
+    doc: jsPDF
+  ): number {
+    const adjustedScale = scale * 1.35;
+    const pdfLeftPos = doc.internal.pageSize.getWidth() / 2 - aspratioWidth / 2;
+    const scaledLeft = left * adjustedScale;
+    return pdfLeftPos + scaledLeft;
+  }
+
   _setPersonalImage(doc: jsPDF): void {
     const { scale, drawPos, shape, customImage } = store.state;
     const imageProps = doc.getImageProperties(customImage);
@@ -50,13 +75,17 @@ class PDFService {
     );
     const width = aspratio.width;
     const height = aspratio.height;
-    const adjustedScale = 1.3 * scale;
-    const adjustedScaleY = 1.2 * scale;
-    const x =
-      doc.internal.pageSize.getWidth() / 2 -
-      aspratio.width / 2 +
-      drawPos.left * adjustedScale;
-    const y = 92 - aspratio.height / 2 + drawPos.top * adjustedScaleY;
+    const x = this._getXpositionForPersonalImage(
+      aspratio.width,
+      drawPos.left,
+      scale,
+      doc
+    );
+    const y = this._getYpositionForPersonalImage(
+      aspratio.height,
+      drawPos.top,
+      scale
+    );
     this._setBackgroundColorForPersonalImage(doc);
     doc.addImage(customImage, "PNG", x, y, width, height);
     // Fill borders

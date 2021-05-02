@@ -2,8 +2,16 @@
   <div class="plaque" ref="mainContainer">
     <div class="plaque__zoom-controls" v-if="showZoomControls">
       <div class="plaque__zoom-controls__container">
-        <button type="button" @click="zoom(false)">-</button>
-        <button type="button" @click="zoom(true)">+</button>
+        <button
+          type="button"
+          class="plaque__zoom-controls__minus-button"
+          @click="zoom(false)"
+        ></button>
+        <button
+          type="button"
+          class="plaque__zoom-controls__plus-button"
+          @click="zoom(true)"
+        ></button>
       </div>
     </div>
     <div class="plaque__container" :class="{ 'border-none': hideBorder }">
@@ -12,8 +20,6 @@
           <img :src="images.logo" />
         </div>
       </div>
-      <span class="mask-image-heart"></span>
-      <span class="mask-image-circle"></span>
       <div
         class="plaque__image"
         :class="{
@@ -29,6 +35,7 @@
           @load="imgLoad"
           :rotate="0"
           :area="100"
+          :handle-zoom-event="onZoomEvent"
           ref="clipperContainer"
           v-if="isCustomImage"
         />
@@ -75,8 +82,9 @@ export default class Plaque extends Vue {
         const areaCover: HTMLElement | null = clipperEl.querySelector(
           ".vuejs-clipper-fixed__stem-outer"
         );
-        if (areaCover)
-          areaCover.style?.setProperty("width", "96%", "important");
+        // if (areaCover) {
+        //   areaCover.style?.setProperty("width", "96%", "important");
+        // }
         if (this.editCustomImageEnabled) this.setScaleAndDrawPosListenner();
       }, 0);
     }
@@ -93,7 +101,9 @@ export default class Plaque extends Vue {
   private editCustomImageEnabled = false;
   private hideBorder = false;
   private scale = 1;
+  private minScale = 1;
   private fixJsClipperBoolean = false;
+  private relocatingImg = false;
 
   private images: { [k: string]: string } = images;
 
@@ -112,7 +122,9 @@ export default class Plaque extends Vue {
   }
 
   mounted(): void {
-    this.resizeSomeElements();
+    setTimeout(() => {
+      this.resizeSomeElements();
+    }, 1000);
     window.addEventListener("resize", this.resizeSomeElements);
     if (this.isCustomImage) this.setEditingMode();
     if (this.$store.state.mode === "editor") {
@@ -156,6 +168,10 @@ export default class Plaque extends Vue {
     this.resizeFontOfInfo();
   }
 
+  onZoomEvent(): number {
+    return this.scale;
+  }
+
   infoFilter(value: string): string {
     if (value?.length > 76) return value.substring(0, 76) + "...";
     return value;
@@ -182,9 +198,11 @@ export default class Plaque extends Vue {
     const zoomScale = parseFloat(
       (zoom ? scale + 0.1 : scale - 0.1).toPrecision(5)
     );
-    const { clipperContainer } = this.$refs;
-    clipperContainer.setWH$.next(zoomScale);
-    this.setScale(zoomScale);
+    if (zoomScale > this.minScale) {
+      const { clipperContainer } = this.$refs;
+      clipperContainer.setWH$.next(zoomScale);
+      this.setScale(zoomScale);
+    }
   }
 
   imgLoad(): void {
@@ -209,15 +227,101 @@ export default class Plaque extends Vue {
           // 0.05 to adjust a litle the black border
           this.scale = wrapperHeight / imageHeight + 0.04;
           this.$refs.clipperContainer.setWH$.next(this.scale);
+          this.minScale = this.scale;
           this.setScale(this.scale);
         }
       } else if (wrapperWidth && imageHeight > imageWidth) {
         // 0.05 to adjust a litle the black border
         this.scale = wrapperWidth / imageWidth;
         this.$refs.clipperContainer.setWH$.next(this.scale);
+        this.minScale = this.scale;
         this.setScale(this.scale);
       }
     }
+  }
+
+  getOuterdivPos(type: string): number {
+    let pos = 0;
+    const outerdivEl = document.querySelector(".js-clipper-fixed");
+    if (outerdivEl) {
+      const boundingClient = outerdivEl?.getBoundingClientRect();
+      if (type === "x") {
+        pos = boundingClient.x + boundingClient.width;
+      } else if (type === "y") {
+        pos = boundingClient.y + boundingClient.height;
+      }
+    }
+    return pos;
+  }
+
+  getInnerDivPos(type: string): number {
+    let pos = 0;
+    const outerdivEl = document.querySelector(
+      ".vuejs-clipper-fixed__img-translate.js-img-translate"
+    );
+    if (outerdivEl) {
+      const boundingClient = outerdivEl?.getBoundingClientRect();
+      if (type === "x") {
+        pos = boundingClient.x + boundingClient.width;
+      } else if (type === "y") {
+        pos = boundingClient.y + boundingClient.height;
+      }
+    }
+    return pos;
+  }
+
+  dragListener(): void {
+    const onDragFinished = () => {
+      const { clipperContainer } = this.$refs;
+      const drawPos = clipperContainer?.getDrawPos();
+      const currentXPos = drawPos?.pos.sx;
+      const positionOfOuterDivX = this.getOuterdivPos("x");
+      const positionOfInnerDivX = this.getInnerDivPos("x");
+      if (currentXPos < 0) {
+        const newLeft =
+          clipperContainer.toX(positionOfInnerDivX - positionOfOuterDivX) -
+          clipperContainer.bgTL$.left;
+        this.$refs.clipperContainer?.setTL$.next({
+          left: newLeft,
+          top: clipperContainer.bgTL$.top,
+        });
+      } else {
+        if (positionOfInnerDivX < positionOfOuterDivX) {
+          const newLeft =
+            clipperContainer.bgTL$.left +
+            clipperContainer.toX(positionOfOuterDivX - positionOfInnerDivX);
+          this.$refs.clipperContainer?.setTL$.next({
+            left: newLeft,
+            top: clipperContainer.bgTL$.top,
+          });
+        }
+      }
+      const currentYPos = drawPos.pos.sy;
+      const positionOfOuterDivY = this.getOuterdivPos("y");
+      const positionOfInnerDivY = this.getInnerDivPos("y");
+      if (currentYPos < 0) {
+        const newTOP =
+          clipperContainer.toY(positionOfInnerDivY - positionOfOuterDivY) -
+          clipperContainer.bgTL$.top;
+        this.$refs.clipperContainer?.setTL$.next({
+          left: clipperContainer.bgTL$.left,
+          top: newTOP,
+        });
+      } else {
+        if (positionOfInnerDivY < positionOfOuterDivY) {
+          const newTop =
+            clipperContainer.bgTL$.top +
+            clipperContainer.toY(positionOfOuterDivY - positionOfInnerDivY);
+          this.$refs.clipperContainer?.setTL$.next({
+            left: clipperContainer.bgTL$.left,
+            top: newTop,
+          });
+        }
+      }
+    };
+    window.addEventListener("mouseup", onDragFinished);
+    window.addEventListener("touchend", onDragFinished);
+    // vuejs-clipper-fixed__img-translate js-img-translate
   }
 
   setScaleAndDrawPosListenner(): void {
@@ -229,12 +333,13 @@ export default class Plaque extends Vue {
           this.fixJsClipperBoolean = true;
         }
         if (typeof e === "object") {
-          if (e.left !== 0 && e.top !== 0) {
-            this.setDrawPos(e);
-          }
+          // if (e.left !== 0 && e.top !== 0) {
+          this.setDrawPos(e);
+          // }
         }
       }
     );
+    this.dragListener();
   }
 
   setScale(scale: number): void {
@@ -251,6 +356,22 @@ export default class Plaque extends Vue {
 <style lang="postcss">
 .plaque {
   max-width: 425px;
+  .js-clipper-fixed {
+    position: relative;
+    &:after {
+      content: "";
+      display: block;
+      padding-bottom: 100%;
+    }
+    > div {
+      position: absolute !important;
+    }
+  }
+  .vuejs-clipper-fixed__img-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   &__container {
     background-color: white;
     border: 1px solid #dcdcdc;
@@ -293,6 +414,18 @@ export default class Plaque extends Vue {
           background-color: #bdbcbc;
         }
       }
+    }
+    &__plus-button {
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 25px;
+      background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='plus' class='svg-inline--fa fa-plus fa-w-14' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='currentColor' d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'%3E%3C/path%3E%3C/svg%3E");
+    }
+    &__minus-button {
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 25px;
+      background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='minus' class='svg-inline--fa fa-minus fa-w-14' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='currentColor' d='M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'%3E%3C/path%3E%3C/svg%3E");
     }
   }
   &__image {

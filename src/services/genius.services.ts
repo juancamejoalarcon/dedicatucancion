@@ -76,8 +76,19 @@ class GeniusService {
       let embed = `<div id='rg_embed_link_${filteredResult.id}' class='rg_embed_link' data-song-id='${filteredResult.id}'></div>`;
       embed += `<script crossorigin src='//genius.com/songs/${filteredResult.id}/embed.js'></script>`;
       iframe.contentDocument?.write(embed);
-      if (iframe.contentDocument)
+      if (iframe.contentDocument) {
         iframe.contentDocument.body.style.fontFamily = "Montserrat";
+        setTimeout(() => {
+          if (iframe.contentDocument) {
+            (iframe.contentDocument.querySelector(
+              ".rg_embed_header"
+            ) as HTMLElement).style.display = "none";
+            (iframe.contentDocument.querySelector(
+              ".rg_embed.music"
+            ) as HTMLElement).style.borderTop = "none";
+          }
+        }, 1500);
+      }
     }
   }
 

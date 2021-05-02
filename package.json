@@ -16,6 +16,7 @@
     "browser-image-compression": "^1.0.14",
     "core-js": "^3.6.5",
     "debounce": "^1.2.1",
+    "jquery": "^3.5.1",
     "jspdf": "^2.3.1",
     "postcss-nested": "^4.0.5",
     "postcss-preset-env": "^6.7.0",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@types/debounce": "^1.2.0",
     "@types/jest": "^24.0.19",
+    "@types/jquery": "^3.5.5",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",

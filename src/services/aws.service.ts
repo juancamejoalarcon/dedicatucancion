@@ -3,7 +3,6 @@ import AWS from "aws-sdk";
 class AwsService {
   private s3: AWS.S3;
   constructor() {
-    console.log(process.env);
     AWS.config.update({
       secretAccessKey: process.env.VUE_APP_SECRET_ACCESS_KEY,
       accessKeyId: process.env.VUE_APP_AWS_ACCESS_KEY_ID,
