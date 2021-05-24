@@ -78,13 +78,6 @@ export default class Plaque extends Vue {
         const { clipperContainer } = this.$refs;
         clipperContainer.setWH$.next(scale);
         clipperContainer.setTL$.next(drawPos);
-        const clipperEl = clipperContainer.$el as HTMLElement;
-        const areaCover: HTMLElement | null = clipperEl.querySelector(
-          ".vuejs-clipper-fixed__stem-outer"
-        );
-        // if (areaCover) {
-        //   areaCover.style?.setProperty("width", "96%", "important");
-        // }
         if (this.editCustomImageEnabled) this.setScaleAndDrawPosListenner();
       }, 0);
     }

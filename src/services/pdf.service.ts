@@ -64,9 +64,21 @@ class PDFService {
     return pdfLeftPos + scaledLeft;
   }
 
-  _setPersonalImage(doc: jsPDF): void {
+  async _setPersonalImage(doc: jsPDF) {
     const { scale, drawPos, shape, customImage } = store.state;
-    const imageProps = doc.getImageProperties(customImage);
+    const orientation = utilsService.getOrientation(customImage);
+    let customImageFixed;
+    if (orientation !== 1) {
+      customImageFixed = await utilsService.resetOrientation(
+        customImage,
+        orientation
+      );
+    } else {
+      customImageFixed = customImage;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const imageProps = doc.getImageProperties(customImageFixed as any);
+
     const aspratio = this.calculateAspectRatioFit(
       imageProps.width,
       imageProps.height,
@@ -87,7 +99,8 @@ class PDFService {
       scale
     );
     this._setBackgroundColorForPersonalImage(doc);
-    doc.addImage(customImage, "PNG", x, y, width, height);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    doc.addImage(customImageFixed as any, "PNG", x, y, width, height);
     // Fill borders
     doc.setDrawColor(255, 255, 255);
     doc.setFillColor(255, 255, 255);
@@ -143,12 +156,12 @@ class PDFService {
     doc.addImage(this.pdf_images.like, "JPEG", 163, 204, 7, 7);
   }
 
-  _setMainImage(doc: jsPDF): void {
+  async _setMainImage(doc: jsPDF) {
     const { isCustomImage, albumImage } = store.state;
     if (!isCustomImage) {
       doc.addImage(albumImage, "JPEG", 40, 28, 130, 130);
     } else {
-      this._setPersonalImage(doc);
+      await this._setPersonalImage(doc);
     }
   }
 
@@ -195,12 +208,13 @@ class PDFService {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async drawAndDownloadPdf(output: boolean): Promise<any> {
     return new Promise((resolve) => {
       const doc = new jsPDF();
-      this._getImages().then(() => {
+      this._getImages().then(async () => {
         this._setSquare(doc);
-        this._setMainImage(doc);
+        await this._setMainImage(doc);
         this._setShape(doc);
         this._setLikeAndControls(doc);
         this._setQrAndText(doc);
