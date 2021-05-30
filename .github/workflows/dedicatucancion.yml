@@ -11,7 +11,7 @@ jobs:
       - name: create env file
         run: |
             touch .env
-            echo VUE_APP_SECRET_ACCESS_KEY =${{ secrets.VUE_APP_SECRET_ACCESS_KEY }} >> .env
+            echo VUE_APP_SECRET_ACCESS_KEY=${{secrets.VUE_APP_SECRET_ACCESS_KEY}} >> .env
             cat .env
     #   - uses: actions/checkout@v2
     #   - name: Use Node.js ${{ matrix.node-version }}
