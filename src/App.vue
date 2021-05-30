@@ -18,6 +18,9 @@ export default class App extends Vue {
   private dedicatucancionJson: any = { mode: "form" };
 
   created(): void {
+    console.log("------");
+    console.log("---PROBANDO DEPLOY---");
+    console.log("------");
     if ((this.$parent as any).dedicatucancionJson) {
       this.dedicatucancionJson = JSON.parse(
         (this.$parent as any).dedicatucancionJson
