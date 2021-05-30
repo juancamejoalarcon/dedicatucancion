@@ -12,13 +12,19 @@ jobs:
         run: |
             touch .env
             echo VUE_APP_SECRET_ACCESS_KEY=${{secrets.VUE_APP_SECRET_ACCESS_KEY}} >> .env
+            echo VUE_APP_AWS_ACCESS_KEY_ID=${{secrets.VUE_APP_AWS_ACCESS_KEY_ID}} >> .env
+            echo VUE_APP_GENIUS_API=${{secrets.VUE_APP_GENIUS_API}} >> .env
+            echo VUE_APP_SPOTI_CLIENT_ID=${{secrets.VUE_APP_SPOTI_CLIENT_ID}} >> .env
+            echo VUE_APP_SPOTI_CLIENT_SECRET=${{secrets.VUE_APP_SPOTI_CLIENT_SECRET}} >> .env
+            echo FTP_USER=${{secrets.FTP_USER}} >> .env
+            echo FTP_PASS=${{secrets.FTP_PASS}} >> .env
             cat .env
-    #   - uses: actions/checkout@v2
-    #   - name: Use Node.js ${{ matrix.node-version }}
-    #     uses: actions/setup-node@v1
-    #     with:
-    #       node-version: ${{ matrix.node-version }}
-    #   - name: Install Packages
-    #     run: npm install
-    #   - name: Build Client
-    #     run: npm run build
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Packages
+        run: npm install
+      - name: Build Client
+        run: npm run build
