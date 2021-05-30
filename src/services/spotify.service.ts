@@ -6,8 +6,8 @@ import geniusService from "@/services/genius.services";
 import store from "@/store/store";
 
 class SpotifyService {
-  private clientId = "fb34f7a3c9234f31a63cd764a2250e9c";
-  private clientSecret = "382d23b2673740ccb03d89af45b6c4f4";
+  private clientId = process.env.VUE_APP_SPOTI_CLIENT_ID;
+  private clientSecret = process.env.VUE_APP_SPOTI_CLIENT_SECRET;
   private spotifyApi = new SpotifyWebApi();
 
   _getAuth(): Promise<string> {
@@ -104,10 +104,6 @@ class SpotifyService {
       }
     });
   }
-  // Use genius: https://genius.com/api-clients
-  // 5RX-QU_clF2n9XDMcOO4oconvHPo0hkx_M7Xhqt46ANNI3Qf-stvUZqerxMPAk67
-  // xNmMsYRxNR7m7LU_nGefXgDVOellY2q3bjDLH0kefhGwEAoSsBJO46QL1-HnCZ4sV5A4Uszd3MBzi7LTQz3NZA
-  // LRNRA3JM28SA60Nxah4Oz5QcWIkQmulMyTIdiUbn2SHHgVVW_q2oF5ptYK49TzU-
 }
 
 export default new SpotifyService();

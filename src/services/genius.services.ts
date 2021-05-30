@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import store from "@/store/store";
 import spotifyService from "@/services/spotify.service";
 
@@ -9,8 +10,7 @@ type searchResult = {
 };
 
 class GeniusService {
-  private apiKey =
-    "LRNRA3JM28SA60Nxah4Oz5QcWIkQmulMyTIdiUbn2SHHgVVW_q2oF5ptYK49TzU-";
+  private apiKey = process.env.VUE_APP_GENIUS_API;
   private songTitle = "";
   private songArtist = "";
   private songId = "";
