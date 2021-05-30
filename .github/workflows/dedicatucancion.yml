@@ -13,17 +13,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-    #   - name: Install Packages
-    #     run: npm install
-      - name: Show vars
-        run: npm run test_env
+      - name: Install Packages
+        run: npm install
+      - name: Build Client
+        run: npm run build
         env:
             VUE_APP_SECRET_ACCESS_KEY: ${{secrets.VUE_APP_SECRET_ACCESS_KEY}}
             VUE_APP_AWS_ACCESS_KEY_ID: ${{secrets.VUE_APP_AWS_ACCESS_KEY_ID}}
             VUE_APP_GENIUS_API: ${{secrets.VUE_APP_GENIUS_API}}
             VUE_APP_SPOTI_CLIENT_ID: ${{secrets.VUE_APP_SPOTI_CLIENT_ID}}
             VUE_APP_SPOTI_CLIENT_SECRET: ${{secrets.VUE_APP_SPOTI_CLIENT_SECRET}}
-            FTP_USER: ${{secrets.FTP_USER}}
-            FTP_PASS: ${{secrets.FTP_PASS}}
-    #   - name: Build Client
-    #     run: npm run build
+      - name: Deploy
+        run: |
+          bash ./deploy.sh ${{secrets.FTP_USER}} ${{secrets.FTP_PASS}}
