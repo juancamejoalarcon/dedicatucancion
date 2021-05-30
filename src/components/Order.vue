@@ -51,7 +51,9 @@ import Form from "@/components/Form.vue";
   components: { Plaque, Form },
 })
 export default class Order extends Vue {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Prop() readonly dedicatucancionJson!: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private amazonObj: any = {};
   private order = "";
 
@@ -135,8 +137,7 @@ export default class Order extends Vue {
     if (buttonVisualize) {
       buttonVisualize.addEventListener("click", () => {
         pdfService.drawAndDownloadPdf(true).then((data) => {
-          var dataURI = "data:application/pdf;base64," + data.substring(51);
-          window.open(dataURI);
+          utilsService.openPdfBase64NewTab(data.substring(51));
         });
       });
     }
