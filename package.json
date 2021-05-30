@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "NODE_ENV='production' vue-cli-service build",
-    "show_vars": "ls",
+    "test_env": "node caca.js",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
