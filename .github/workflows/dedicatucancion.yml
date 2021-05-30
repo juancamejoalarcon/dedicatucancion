@@ -28,15 +28,13 @@ jobs:
     #     run: npm install
       - name: Show vars
         run: |
-            touch .env
-            echo VUE_APP_SECRET_ACCESS_KEY=${{secrets.VUE_APP_SECRET_ACCESS_KEY}} >> .env
-            echo VUE_APP_AWS_ACCESS_KEY_ID=${{secrets.VUE_APP_AWS_ACCESS_KEY_ID}} >> .env
-            echo VUE_APP_GENIUS_API=${{secrets.VUE_APP_GENIUS_API}} >> .env
-            echo VUE_APP_SPOTI_CLIENT_ID=${{secrets.VUE_APP_SPOTI_CLIENT_ID}} >> .env
-            echo VUE_APP_SPOTI_CLIENT_SECRET=${{secrets.VUE_APP_SPOTI_CLIENT_SECRET}} >> .env
-            echo FTP_USER=${{secrets.FTP_USER}} >> .env
-            echo FTP_PASS=${{secrets.FTP_PASS}} >> .env
-            cat .env
-            npm run show_vars
+            echo VUE_APP_SECRET_ACCESS_KEY=${{secrets.VUE_APP_SECRET_ACCESS_KEY}} >> $GITHUB_ENV
+            echo VUE_APP_AWS_ACCESS_KEY_ID=${{secrets.VUE_APP_AWS_ACCESS_KEY_ID}} >> $GITHUB_ENV
+            echo VUE_APP_GENIUS_API=${{secrets.VUE_APP_GENIUS_API}} >> $GITHUB_ENV
+            echo VUE_APP_SPOTI_CLIENT_ID=${{secrets.VUE_APP_SPOTI_CLIENT_ID}} >> $GITHUB_ENV
+            echo VUE_APP_SPOTI_CLIENT_SECRET=${{secrets.VUE_APP_SPOTI_CLIENT_SECRET}} >> $GITHUB_ENV
+            echo FTP_USER=${{secrets.FTP_USER}} >> $GITHUB_ENV
+            echo FTP_PASS=${{secrets.FTP_PASS}} >> $GITHUB_ENV
+            echo $GITHUB_ENV
     #   - name: Build Client
     #     run: npm run build
