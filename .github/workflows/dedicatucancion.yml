@@ -24,7 +24,6 @@ jobs:
             VUE_APP_SPOTI_CLIENT_SECRET:${{secrets.VUE_APP_SPOTI_CLIENT_SECRET}}
             FTP_USER:${{secrets.FTP_USER}}
             FTP_PASS:${{secrets.FTP_PASS}}
-      - name: Test variables
         run: npm run test_env
     #   - name: Build Client
     #     run: npm run build
