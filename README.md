@@ -1,29 +1,15 @@
+<a href="https://www.dedicatucancion.com/">
+    <img src="https://www.dedicatucancion.com/wp-content/uploads/2021/03/logo-b-1.svg" alt="dedicatucacion logo" title="dedicatucancion" align="right" height="35" />
+</a>
+
 # dedicatucancion
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<!-- - Título + logo
+- Descripción
+- Powered with vue
+- BEM 
+- Typescript
+- Deploy with github actions through FTP 
+- loaded in <div id="dedicatucancion"></div> -->

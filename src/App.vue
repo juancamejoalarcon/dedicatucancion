@@ -19,7 +19,7 @@ export default class App extends Vue {
 
   created(): void {
     console.log("------");
-    console.log("---PROBANDO DEPLOY---");
+    console.log("---DEDICATU---");
     console.log("------");
     if ((this.$parent as any).dedicatucancionJson) {
       this.dedicatucancionJson = JSON.parse(
