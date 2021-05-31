@@ -1,12 +1,8 @@
-<a href="https://www.dedicatucancion.com/">
-    <img src="https://www.dedicatucancion.com/wp-content/uploads/2021/03/logo-b-1.svg" alt="dedicatucacion logo" title="dedicatucancion" align="right" height="35" />
-</a>
-
-# dedicatucancion
+# ![dedicatucancion](https://www.dedicatucancion.com/wp-content/uploads/2021/03/logo-b-1.svg)
 
 This is the Front-end project that powers [www.dedicatucancion.com](https://www.dedicatucancion.com]), a page to create spotify plaques ([DEMO](https://www.dedicatucancion.com/#personalizar])). Made with VUE.js, typescript, postcss with BEM.
 
-  <img src="https://soundsonner-statics.s3.eu-west-3.amazonaws.com/screenshot.png" alt="screenshot" title="screenshot"/>
+![screenshot](https://soundsonner-statics.s3.eu-west-3.amazonaws.com/screenshot.png)
 
 ## Installation
 ### Project setup
