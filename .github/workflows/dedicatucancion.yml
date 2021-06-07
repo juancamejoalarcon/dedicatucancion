@@ -23,6 +23,7 @@ jobs:
             VUE_APP_GENIUS_API: ${{secrets.VUE_APP_GENIUS_API}}
             VUE_APP_SPOTI_CLIENT_ID: ${{secrets.VUE_APP_SPOTI_CLIENT_ID}}
             VUE_APP_SPOTI_CLIENT_SECRET: ${{secrets.VUE_APP_SPOTI_CLIENT_SECRET}}
+            VUE_APP_SLACK_WEBHOOK: ${{secrets.VUE_APP_SLACK_WEBHOOK}}
       - name: Deploy
         run: |
           bash ./deploy.sh ${{secrets.FTP_USER}} ${{secrets.FTP_PASS}}

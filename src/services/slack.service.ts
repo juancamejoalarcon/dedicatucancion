@@ -14,7 +14,6 @@ class SlackService {
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendWebhook(message: any): void {
-    console.log(process.env.VUE_APP_SLACK_WEBHOOK);
     const headers = {
       headers: {
         Accept: "application/json",
