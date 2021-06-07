@@ -11,10 +11,14 @@ const headers = {
 
 class SlackService {
   listenners(): void {
-    const addToCartButton = document.querySelector(".add_to_cart_button");
-    addToCartButton?.addEventListener("click", () => {
-      this.initedCheckout();
-    });
+    setTimeout(() => {
+      const addToCartButton = document.querySelector(".add_to_cart_button");
+      addToCartButton?.addEventListener("click", () => {
+        console.log("--Clicked on add to cart---");
+        console.log("-----");
+        this.initedCheckout();
+      });
+    }, 1000);
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendWebhook(message: any): void {
