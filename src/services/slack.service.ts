@@ -1,13 +1,6 @@
 import axios from "axios";
 import store from "@/store/store";
 
-const webHook = process.env.VUE_APP_SLACK_WEBHOOK;
-const headers = {
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-};
 
 class SlackService {
   listenners(): void {
@@ -22,9 +15,15 @@ class SlackService {
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendWebhook(message: any): void {
-    console.log(webHook);
+    console.log(process.env.VUE_APP_SLACK_WEBHOOK);
+    const headers = {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    };
     axios
-      .post(webHook, message, headers)
+      .post(process.env.VUE_APP_SLACK_WEBHOOK, message, headers)
       .then((response) => {
         console.log(response);
       })
