@@ -1,7 +1,6 @@
 import axios from "axios";
 import store from "@/store/store";
 
-
 class SlackService {
   listenners(): void {
     setTimeout(() => {
