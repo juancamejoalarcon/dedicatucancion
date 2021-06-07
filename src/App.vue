@@ -8,8 +8,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import Form from "@/components/Form.vue";
 import Order from "@/components/Order.vue";
-// import Dedicatucancion from "@/models/Dedicatucancion";
 import wordpressSetup from "@/services/wordpress-setup.service";
+import slackService from "@/services/slack.service";
 
 @Component({
   components: { Form, Order },
@@ -18,9 +18,6 @@ export default class App extends Vue {
   private dedicatucancionJson: any = { mode: "form" };
 
   created(): void {
-    console.log("------");
-    console.log("---DEDICATU---");
-    console.log("------");
     if ((this.$parent as any).dedicatucancionJson) {
       this.dedicatucancionJson = JSON.parse(
         (this.$parent as any).dedicatucancionJson
@@ -29,6 +26,7 @@ export default class App extends Vue {
   }
   mounted(): void {
     wordpressSetup();
+    slackService.listenners();
   }
 }
 </script>
