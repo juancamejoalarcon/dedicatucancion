@@ -123,11 +123,11 @@ class PDFService {
   }
 
   _setShape(doc: jsPDF): void {
-    const { shape } = store.state;
+    const { shape, isCustomImage } = store.state;
     if (shape !== "classic") {
       const setShape_loc = {
         x: 40,
-        y: shape === "circle" ? 26 : 28,
+        y: shape === "circle" && isCustomImage ? 26 : 28,
         with: 130,
         height: 130,
       };
