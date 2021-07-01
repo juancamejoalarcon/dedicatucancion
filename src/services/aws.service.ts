@@ -24,7 +24,7 @@ class AwsService {
             console.log(err);
             reject();
           }
-          resolve(JSON.parse(atob(data.Body.toString("base64"))));
+          resolve(JSON.parse(data.Body.toString("utf-8")));
         }
       );
     });
