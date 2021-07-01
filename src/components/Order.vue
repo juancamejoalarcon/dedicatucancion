@@ -104,8 +104,8 @@ export default class Order extends Vue {
         spotifyService.getTrackId(soundsonner.song_id).then((track) => {
           this.dispatch([
             ["setIsCustomImage", soundsonner.type === "personal"],
-            ["addSongTitle", track.name],
-            ["addSongArtist", spotifyService.getArtists(track)],
+            ["addSongTitle", soundsonner.song_title],
+            ["addSongArtist", soundsonner.song_artist],
             ["addAlbumTitle", track.album.name],
             ["setShape", soundsonner.shape],
             ["setQr", soundsonner.soundwave],
