@@ -46,7 +46,10 @@ class PDFService {
   ): number {
     const orderKey = utilsService.getQueryParam("key");
     // FIXME: este top se descuadraba
-    if (orderKey === "wc_order_qFdcFWF32XqQm") {
+    if (
+      orderKey === "wc_order_qFdcFWF32XqQm" ||
+      orderKey === "wc_order_0PMJ1MyoLgLzQ"
+    ) {
       aspratioHeight = aspratioHeight * 0.78;
     }
     // top of square + height
