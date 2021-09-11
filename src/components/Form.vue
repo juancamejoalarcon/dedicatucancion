@@ -316,12 +316,23 @@ export default class Form extends Vue {
     this.$store.dispatch("setShape", this.shape);
   }
 
+  removeInvalidChars(str: string): string {
+    const ranges = [
+      "\ud83c[\udf00-\udfff]", // U+1F300 to U+1F3FF
+      "\ud83d[\udc00-\ude4f]", // U+1F400 to U+1F64F
+      "\ud83d[\ude80-\udeff]", // U+1F680 to U+1F6FF
+    ];
+    return str.replace(new RegExp(ranges.join("|"), "g"), "");
+  }
+
   setSongTitle(e: Event<HTMLInputElement>): void {
-    this.$store.dispatch("addSongTitle", e.target.value);
+    this.songTitle = this.removeInvalidChars(e.target.value);
+    this.$store.dispatch("addSongTitle", this.songTitle);
   }
 
   setSongArtist(e: Event<HTMLInputElement>): void {
-    this.$store.dispatch("addSongArtist", e.target.value);
+    this.songArtist = this.removeInvalidChars(e.target.value);
+    this.$store.dispatch("addSongArtist", this.songArtist);
   }
 
   onSongIdFocus(e: { target: HTMLInputElement }): void {

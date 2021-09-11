@@ -44,18 +44,11 @@ class PDFService {
     top: number,
     scale: number
   ): number {
-    const orderKey = utilsService.getQueryParam("key");
-    // FIXME: este top se descuadraba
-    if (
-      orderKey === "wc_order_qFdcFWF32XqQm" ||
-      orderKey === "wc_order_0PMJ1MyoLgLzQ"
-    ) {
-      aspratioHeight = aspratioHeight * 0.78;
-    }
+    // const orderKey = utilsService.getQueryParam("key");
     // top of square + height
     const initialTop = 28 + 130 / 2;
     const centerImage = initialTop - aspratioHeight / 2;
-    const adjustedScale = scale * 0.8;
+    const adjustedScale = scale * 2.1;
     const scaledTop = top * adjustedScale;
     return centerImage + scaledTop;
   }
